@@ -7,8 +7,9 @@ class Solution {
         List < List < Integer >> res = new ArrayList < > ();
         Arrays.sort(nums);
         for (int i = 0; i < N - 2; i++) {
+            if(nums[i]>0) break;    //no way to make 0 with all positives
             if (i > 0 && nums[i - 1] == nums[i]) continue;  //each target is unique
-            twoSum(i + 1, N - 1, -nums[i], res);
+            twoSum(i + 1, N - 1, -nums[i], res);    //triple will always ascend
         }
         return res;
     }
