@@ -1,0 +1,66 @@
+class RangeModule {
+    TreeSet < Interval > ranges;
+    public RangeModule() {
+        ranges = new TreeSet(); //will be maintained without overlaps
+    }
+
+    public void addRange(int left, int right) {
+        Iterator < Interval > itr = ranges.tailSet(new Interval(0, left - 1)).iterator(); //excludes anything whose right< new left
+        while (itr.hasNext()) {
+            Interval iv = itr.next();
+            if (right < iv.left) break; //no chance of merging with future intervals
+            left = Math.min(left, iv.left);
+            right = Math.max(right, iv.right);
+            itr.remove(); //removes from actual ranges
+        }
+        ranges.add(new Interval(left, right));
+        // itr=ranges.iterator();
+        // while(itr.hasNext()) System.out.print(itr.next());
+        // System.out.println();
+    }
+
+    public boolean queryRange(int left, int right) {
+        Interval iv = ranges.higher(new Interval(0, left)); //sets left as rightmost boundary = eliminates all lesser intervals, IDs the one whose left may include this left
+        return iv != null && iv.right >= right && iv.left <= left;
+    }
+
+    public void removeRange(int left, int right) {
+        Iterator < Interval > itr = ranges.tailSet(new Interval(0, left)).iterator(); //removes all intervals with no chance of overlap
+        ArrayList < Interval > toAdd = new ArrayList < > ();
+        while (itr.hasNext()) {
+            Interval iv = itr.next();
+            if (right < iv.left) break;
+            if (iv.right > right) toAdd.add(new Interval(right, iv.right)); //can't modify ranges while iterating
+            if (iv.left < left) toAdd.add(new Interval(iv.left, left));
+            itr.remove();
+        }
+        for (Interval iv: toAdd) ranges.add(iv);
+        //         itr=ranges.iterator();
+        // while(itr.hasNext()) System.out.print(itr.next());
+        // System.out.println();
+    }
+}
+
+class Interval implements Comparable < Interval > {
+    int left,
+    right;
+
+    public Interval(int left, int right) {
+        this.left = left;
+        this.right = right;
+    }
+
+    public int compareTo(Interval that) {
+        return this.right != that.right ? this.right - that.right : this.left - that.left;
+    }
+    public String toString() {
+        return "[" + left + ", " + right + "]";
+    }
+}
+/**
+ * Your RangeModule object will be instantiated and called as such:
+ * RangeModule obj = new RangeModule();
+ * obj.addRange(left,right);
+ * boolean param_2 = obj.queryRange(left,right);
+ * obj.removeRange(left,right);
+ */
