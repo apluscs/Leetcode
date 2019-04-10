@@ -1,4 +1,30 @@
-class Solution {  //TLE :(
+class Solution {
+    public List < String > removeComments(String[] source) {
+        boolean inBlock = false;
+        StringBuilder sb = new StringBuilder();
+        List < String > res = new ArrayList < > ();
+        for (String s: source) {
+            char[] line = s.toCharArray();
+            if (!inBlock) sb = new StringBuilder(); //must reach end of block before starting new SB
+            for (int i = 0; i != line.length; i++) {
+                if (!inBlock) {
+                    if (i != line.length - 1 && line[i] == '/' && line[i + 1] == '/') break; //jump to next line
+                    if (i != line.length - 1 && line[i] == '/' && line[i + 1] == '*') { //start a block comment
+                        inBlock = true;
+                        i++;
+                    } else sb.append(line[i]);
+                } else if (i != line.length - 1 && line[i] == '*' && line[i + 1] == '/') { //does block end here?
+                    inBlock = false;
+                    i++;
+                }
+            }
+            if (!inBlock && sb.length() != 0) res.add(sb.toString()); //if in block, find the part after block ends
+        }
+        return res;
+    }
+}
+
+class SolutionSlow {  //TLE :(
     public List < String > removeComments(String[] source) {
         int si = 0, ci = 0;
         String curr = "";
