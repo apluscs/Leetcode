@@ -10,3 +10,19 @@ class Solution {
         return res;
     }
 }
+
+class SolutionFast {    //int[] to represent stack, much faster
+    public int[] dailyTemperatures(int[] nums) {
+        int[] st = new int[nums.length];
+        int[] res = new int[nums.length];
+        int top = -1;
+        for (int i = nums.length - 1; i != -1; i--) {
+            while (top != -1 && nums[st[top]] <= nums[i]) {
+                top--;
+            }
+            if (top != -1) res[i] = st[top] - i;
+            st[++top] = i;
+        }
+        return res;
+    }
+}
