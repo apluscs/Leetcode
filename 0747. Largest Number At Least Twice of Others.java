@@ -16,3 +16,8 @@ class Solution {
         return -1;
     }
 }
+
+/* flex time
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Largest Number At Least Twice of Others.
+Memory Usage: 35 MB, less than 99.78% of Java online submissions for Largest Number At Least Twice of Others.
+*/
