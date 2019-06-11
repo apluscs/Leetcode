@@ -10,7 +10,7 @@ class Solution {
             for (int j = 0; j != size; j++) {
                 String str = que.poll();
                 // System.out.println(str);
-                StringBuilder curr = new StringBuilder(str); //may not be worth the time cost
+                StringBuilder curr = new StringBuilder(str); //worth the time cost (95ms --> 132ms with substring())
                 if (str.equals(target)) return round;
                 if (vis.contains(str)) continue;
                 vis.add(str);
