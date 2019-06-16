@@ -25,3 +25,29 @@ class Solution {
         return false;
     }
 }
+
+class SolutionDijkstra {
+
+    public int swimInWater(int[][] grid) { //Dijkstra = shortest path from source to sink. Here, distance is determined by the max of grid[i][j] along the entire path
+        int[][] dir = new int[][] { {-1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+        int N = grid.length, res = 0;
+        PriorityQueue < int[] > pq = new PriorityQueue < > ((a, b) - > grid[a[0]][a[1]] - grid[b[0]][b[1]]);
+        boolean[][] vis = new boolean[N][N];
+        pq.add(new int[] { 0, 0 });
+        while (!pq.isEmpty()) {
+            int[] curr = pq.poll();
+            int i = curr[0], j = curr[1];
+            res = Math.max(grid[i][j], res);
+            if (i == N - 1 && j == N - 1) break;
+            // System.out.println(Arrays.toString(curr));
+
+            vis[i][j] = true;
+            for (int[] d: dir) {
+                int ni = i + d[0], nj = j + d[1];
+                if (ni == -1 || ni == N || nj == -1 || nj == N || vis[ni][nj]) continue;
+                pq.add(new int[] { ni, nj });
+            }
+        }
+        return res;
+    }
+}
