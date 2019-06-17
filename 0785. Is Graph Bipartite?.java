@@ -18,3 +18,34 @@ class Solution {
         return true;
     }
 }
+/*
+Runtime: 6 ms, faster than 11.99% of Java online submissions for Is Graph Bipartite?.
+Memory Usage: 45.5 MB, less than 52.24% of Java online submissions for Is Graph Bipartite?.
+*/
+
+class SolutionDFS {
+    int N;
+    int[] parts;
+    int[][] graph;
+    public boolean isBipartite(int[][] g) {
+        N = g.length;
+        parts = new int[N];
+        graph = g;
+        for (int i = 0; i != N; i++)
+            if (parts[i] == 0 && !helper(i, 1)) return false; //only calls helper if unvisited
+        return true; //must all return true, so if one false, we return false
+    }
+
+    public boolean helper(int ind, int pt) {
+        if (parts[ind] == 3 - pt) return false; //wrong part
+        if (parts[ind] == pt) return true; //already visited
+        parts[ind] = pt;
+        for (int n: graph[ind])
+            if (!helper(n, 3 - pt)) return false;
+        return true;
+    }
+}
+/*
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Is Graph Bipartite?.
+Memory Usage: 44.1 MB, less than 71.81% of Java online submissions for Is Graph Bipartite?.
+*/
