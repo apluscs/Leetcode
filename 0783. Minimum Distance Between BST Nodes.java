@@ -17,3 +17,22 @@ class Solution {
         return res;
     }
 }
+
+class SolutionNonRecur {    //non recursive, slower but better memory
+    public int minDiffInBST(TreeNode root) {
+        Stack<TreeNode> stack=new Stack<>();
+        int res=Integer.MAX_VALUE, prev=-1;
+        TreeNode curr=root;
+        while(curr!=null||!stack.isEmpty()){
+            while(curr!=null){
+                stack.push(curr);   curr=curr.left;
+            }
+            curr=stack.pop();
+            // System.out.println(curr.val);
+            if(prev!=-1)res=Math.min(res,curr.val-prev);
+            prev=curr.val;
+            curr=curr.right;
+        }
+        return res;
+    }
+}
