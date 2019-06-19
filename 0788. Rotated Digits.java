@@ -1,16 +1,10 @@
 class Solution {
     public int rotatedDigits(int N) {
-        int num = 2, pow = 1, res = 0;
+        int num = 2, res = 0;
         while (num <= N) {
-            if (num / pow == 3 || num / pow == 4 || num / pow == 7) { //skips over large number ranges
-                num += pow;
-                // System.out.println(num);
-                continue;
-            }
             if (isValid(num)) res++;
             num++;
             // System.out.println(num+", "+pow);
-            if (num / (pow * 10) != 0) pow *= 10;
         }
         return res;
     }
