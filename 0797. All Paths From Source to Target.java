@@ -2,7 +2,7 @@ class Solution {
     int N;
     List < List < Integer >> res;
     int[][] graph;
-    public List < List < Integer >> allPathsSourceTarget(int[][] g) {
+    public List < List < Integer >> allPathsSourceTarget(int[][] g) { //classic dfs
         N = g.length;
         graph = g;
         res = new LinkedList < > ();
