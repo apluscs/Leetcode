@@ -29,5 +29,29 @@ class Solution {
             if (res[i]) rs.add(i);
         return rs;
     }
+}
 
+
+class SolutionFast {
+    int[] vis;
+    int[][] graph;
+    public List < Integer > eventualSafeNodes(int[][] g) {
+        vis = new int[g.length];
+        graph = g;
+        List < Integer > res = new ArrayList < > ();
+        for (int i = 0; i != graph.length; i++)
+            if (dfs(i)) res.add(i);
+        return res;
+    }
+
+    boolean dfs(int curr) { //objective is to try to find one path to a cycle=bad node
+        if (vis[curr] == 1) return false; //node we alr visited in this path = cycle OR a node that has been marked as a cycle previously
+        if (vis[curr] == 2) return true; //we know this node is good so don't worry
+        vis[curr] = 1; //mark as cycle
+        for (int ng: graph[curr])
+            if (!dfs(ng))
+                return false;
+        vis[curr] = 2; //only demark cycle if we make it past the for loop(good node)
+        return true;
+    }
 }
