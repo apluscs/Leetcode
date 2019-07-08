@@ -21,4 +21,16 @@ class Solution {
             }
             return res;
         }
+    
+        int numComponentsFaster(ListNode * curr, vector < int > & G) {    
+            int res = 0;
+            unordered_set < int > nums; //faster lookup
+            for (int num: G) nums.insert(num);
+            while (curr != NULL) { //curr is a pointer = int = can compare with NULL (also int)
+                if (nums.count(curr - > val)) res++; //count returns 0 if not there
+                while (curr != NULL && nums.count(curr - > val)) curr = curr - > next; //-> dereferences and points
+                while (curr != NULL && !nums.count(curr - > val)) curr = curr - > next;
+            }
+            return res;
+        }
 };
