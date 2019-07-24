@@ -10,6 +10,7 @@ class Solution {  //NOT DONE
             adj[e[1]].add(e[0]);
         }
         countUp(0,-1);
+        resUp(0,-1);
         return res;
     }
     
@@ -20,6 +21,14 @@ class Solution {  //NOT DONE
             countUp(nei,curr);  
             count[curr]+=count[nei];    //add however many are below you
             res[curr]+=res[nei];    
+        }
+    }
+    
+    public void countUp(int curr,int par){
+        for(int nei:adj[curr]){
+            if(nei==par) continue;
+            resUp(nei,curr);  
+            res[curr]+=res[nei];    //WRONG
         }
         res[curr]+=count[curr]-1; //one for each node except you
     }
