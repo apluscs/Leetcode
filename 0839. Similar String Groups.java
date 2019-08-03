@@ -32,7 +32,7 @@ class Solution {
         for (int nei: adj[curr]) dfs(nei);
     }
 
-    boolean similar(String S, String T) {
+    boolean similarSLOW(String S, String T) {
         char s = '.', t = '.';
         int N = S.length();
         char[] sarr = S.toCharArray(), tarr = T.toCharArray();
@@ -45,5 +45,14 @@ class Solution {
         else return false; //inconsistency, but not first or the perfect second
 
         return true;
+    }
+    
+    boolean similar(String s, String t) {   //a little faster (Runtime: 478 ms, faster than 28.28% of Java online submissions.)
+        int res = 0, i = 0;
+        while(res <= 2 && i < s.length()){
+            if(s.charAt(i) != t.charAt(i)) res++;
+            i++;
+        }
+        return res == 2 || res==0;
     }
 }
