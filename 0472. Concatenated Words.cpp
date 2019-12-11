@@ -1,4 +1,26 @@
-
+class Solution {
+    public:
+        vector < string > findAllConcatenatedWordsInADict(vector < string > & words) {
+            unordered_set < string > set(words.begin(), words.end());
+            vector < string > res;
+            for (string w: words) {
+                int N = w.size();
+                vector < int > dp(N + 1);
+                dp[0] = 1; //one way to make the empty string
+                for (int i = 0; i != N; i++) {
+                    if (dp[i] == 0) continue; //we know we can make everything <= i
+                    for (int j = i + 1; j <= N; j++) { //can we tack on anything else?
+                        if (j - i < N && set.count(w.substr(i, j - i))) dp[j] = 1;
+                    }
+                    if (dp[N]) {
+                        res.push_back(w);
+                        break;
+                    }
+                }
+            }
+            return res;
+        }
+};
 
 class SolutionTLE {
     public:
