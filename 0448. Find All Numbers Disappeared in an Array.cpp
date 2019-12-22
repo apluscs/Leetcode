@@ -1,4 +1,4 @@
-class Solution {
+class Solution {    // 23% runtime , 100% memory
     public:
         vector < int > findDisappearedNumbers(vector < int > & nums) {
             vector < int > res;
@@ -17,4 +17,18 @@ class Solution {
                 if (nums[i] != i + 1) res.push_back(i + 1);
             return res;
         }
+};
+
+class Solution2 {   //slightly slower! same memory
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        vector<int> res;
+        int N=nums.size();
+        for(int i=0;i!=N;i++){
+            int pos=abs(nums[i])-1; //because nums[i] might be negative
+            nums[pos]= nums[pos] > 0? -nums[pos] : nums[pos];   //mark this index as have been seen
+        }
+        for(int i=0;i!=N;i++) if(nums[i]>0) res.push_back(i+1);
+        return res;
+    }
 };
