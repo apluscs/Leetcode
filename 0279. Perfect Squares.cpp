@@ -26,3 +26,27 @@ class Solution2 {
             return dp[N];
         }
 };
+
+class SolutionBFS {
+    public:
+        int numSquares(int N) {
+            unordered_set < int > vis;
+            queue < int > que;
+            int res = 0; // level of breadth from center of graph
+            que.push(0);
+            while (!que.empty()) {
+                int M = que.size();
+                for (int i = 0; i != M; i++) {
+                    int curr = que.front();
+                    que.pop();
+                    if (curr == N) return res;
+                    if (vis.count(curr)) continue;
+                    vis.insert(curr); // mark as visited
+                    for (int j = 1; j * j + curr <= N; j++)
+                        que.push(j * j + curr); // add all valid squares to curr
+                }
+                res++; // this level all checked out, try next one
+            }
+            return res;
+        }
+};
