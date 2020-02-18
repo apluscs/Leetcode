@@ -7,6 +7,7 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+// Next time try iterative, stack with structs that indicate whether the node's children have been processed or not
 class Solution {
   public:
     int tar;
