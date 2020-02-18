@@ -27,10 +27,13 @@ class Solution {
     return res;
   }
 
-  int count_soldiers(vector < int > & row) {
-    int N = row.size();
-    for (int i = 0; i != N; ++i)
-      if (row[i] == 0) return i;
-    return N;
-  }
+    int count_soldiers(vector<int>& row){
+        int low = 0, high = row.size() - 1;
+        while(low <= high){
+            int mid = (low + high) / 2;
+            if(row[mid] == 1) low = mid + 1;
+            else high = mid - 1;
+        }
+        return low; // first "0"
+    }
 };
