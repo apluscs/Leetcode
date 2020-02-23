@@ -5,6 +5,9 @@
 #         self.left = None
 #         self.right = None
 
+# https://leetcode.com/problems/serialize-and-deserialize-bst/discuss/93171/Python-O(-N-)-solution.-easy-to-understand
+# probably faster
+
 class Codec:
 
     def serialize(self, curr: TreeNode) -> str:
