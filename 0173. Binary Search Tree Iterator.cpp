@@ -8,7 +8,8 @@
  * };
  */
  
- // Idk how this uses O(h) memory when it literally puts the entire tree into a queue 
+ // Idk how this uses O(h) memory when it literally puts the entire tree into a queue (at 100% memory usage)
+// https://leetcode.com/problems/binary-search-tree-iterator/solution/ this is how dumas
 class BSTIterator {
 public:
     stack<TreeNode*> st;
