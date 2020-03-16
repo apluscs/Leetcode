@@ -30,7 +30,7 @@ public:
             pq.push(engins[i]);
             sum += engins[i].s;
             if(pq.size() > K){ 
-                sum -= pq.top().s;  
+                sum -= pq.top().s;  	// could be engins[i], but this person leaving will not affect future loops
                 pq.pop();
             }
             res = max(res, sum * engins[i].e);  // result with engineer i in 
