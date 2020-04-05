@@ -1,6 +1,6 @@
 class Solution {
 public:
-    
+    // redo with Manachers
     int minCut(string s) {
         int N = s.length();
         if(N == 0) return 0;
