@@ -1,4 +1,4 @@
-class Solution {
+class Solution {    // top down
 public:
     const int MOD = 1e9 + 7;
     int M;
@@ -23,3 +23,29 @@ public:
         return dp[n][low][k];
     }
 };
+
+
+class Solution {    // actually in Java, bottom up
+    public int numOfArrays(int N, int M, int K) {
+        final long MOD = (long) 1E9+7;
+        long[][][] dp = new long[K+1][N+1][M+1];
+        dp[0][0][0]=1;  // when it works out perfectly ex. n = 1, m = 1, k = 1, put down 1 in first slot --> 
+        
+        for(int k = 1; k<=K; k++){
+            for(int n = k; n<=N; n++){
+                for(int m = 0; m<=M; m++){
+                    dp[k][n][m] = (dp[k][n-1][m]*m) % MOD;  // how many ways to build n - 1 elems that don't exceed the maximum m ?
+                    for(int i = 0; i<m; i++){   // try putting down value i + 1 in last pos
+                        dp[k][n][m] += (dp[k-1][n-1][i]) % MOD; // everything that came before must be <= i + 1 in order for it to be a surprise
+                    }
+                }
+            }
+        }
+        
+        long ans = 0; 
+        for(int i = 0; i<=M; i++){
+            ans+=dp[K][N][i]%MOD;
+        }
+        return (int) (ans%MOD); 
+    }
+}
