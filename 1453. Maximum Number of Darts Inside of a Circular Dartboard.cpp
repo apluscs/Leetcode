@@ -1,4 +1,40 @@
-class Solution {  // 14% time, could be much better with angular sweep
+class Solution {    // much faster - 92%
+public:
+    double r;
+    double eps=1e-6;
+    int numPoints(vector<vector<int>>& points, int r) {
+        int res=1,n=points.size();
+        this->r=r;
+        for(int i=0;i!=n;++i){
+            int cx=points[i][0],cy=points[i][1];
+            vector<pair<double,bool>> angles;
+            for(int j=0;j!=n;++j){
+                double x=points[j][0], y=points[j][1],d=dist(cx,cy,x,y);
+                if(d>r*2+eps || i==j)continue;
+                double a=atan2((y-cy),(x-cx)), b=acos(d/(r*2.0));
+                angles.push_back(make_pair(a-b,false)); // must make this false so that it comes before true when sorting (enter before you exit)
+                angles.push_back(make_pair(a+b,true));
+                // cout<<cx<<","<<cy<<","<<x<<","<<y<<","<<a<<","<<b<<","<<endl;
+            }
+            sort(angles.begin(),angles.end());
+            int curr=1; // the ith point itself
+            for(auto p:angles){
+                // cout<<p.first<<" ";
+                curr+=p.second?-1:1;
+                res=max(res,curr);
+            }
+            // cout<<res<<endl<<endl;
+        }
+        
+        return res;
+    }
+    
+    double dist(double x1,double y1,double x2,double y2){
+        return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+    }
+};
+
+class SolutionB {  // 14% time, could be much better with angular sweep
 public:
     double r;
     double eps=1e-6;
