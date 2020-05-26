@@ -1,3 +1,4 @@
+
 // creds to https://www.acwing.com/file_system/file/content/whole/index/content/346168/
 class Solution {
   public: #define LL long long
