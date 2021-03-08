@@ -4,11 +4,11 @@
   cout << endl; }
 class Solution {
 public:
-  int total[20001] = {0}, n, tree[100001];
+  int total[20001] = {0}, n, tree[100005], m;
   unordered_set<int> adj[20001];
   vector<int> countPairs(int n, vector<vector<int>>& edges, vector<int>& queries) {
     vector<int> res;
-    this->n = n;
+    this->n = n, m = edges.size();
     unordered_map<pair<int,int>, int, pair_hash> between;  // between = #edges directly between (u,v)
     for(auto& e : edges){
       if(e[0] > e[1]) swap(e[0], e[1]);
@@ -28,7 +28,7 @@ public:
   }
   int solve(int q) {  // want to know pairs without a direct edge that have total[u] + total[v] > q
     int res = 0;
-    memset(tree, 0, sizeof(tree));
+    memset(tree, 0, (m+5)*4);
     for(int i=1; i<=n; ++i) {
       update(total[i], 1);
     }
@@ -42,11 +42,12 @@ public:
     return res;
   }
   void update(int v, int d) {  // d is the incoming change
-    for (int i = v; i <= 100000; i += (i & -i)) tree[i] += d;
+    // printf("v=%d, d=%d\n", v,d);
+    for (int i = v+1; i <= m+1; i += (i & -i)) tree[i] += d;
   }
   int query(int v) {
     int res = 0;
-    for (int i = v; i>0; i -= (i & -i)) res += tree[i];
+    for (int i = v+1; i>0; i -= (i & -i)) res += tree[i];
     return res;
   }
   struct pair_hash {
