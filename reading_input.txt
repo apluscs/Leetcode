@@ -1,0 +1,21 @@
+// READING INPUT
+
+// vector of ints to a string
+stringstream ss;
+copy(v.begin(), v.end(), ostream_iterator<int>(ss, " "));
+string s = ss.str();
+
+// split a string by spaces
+istringstream ss(str);
+
+// Traverse through all words
+do {
+  // Read a word
+  string word;
+  ss >> word;
+
+  // Print the read word
+  cout << word << endl;
+
+  // While there is more to read
+} while (ss);

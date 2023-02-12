@@ -1,0 +1,14 @@
+// TREE DIAMETER
+
+int get_diameter(int i) { // returns diam from the region i is in
+  i = farthest(i, 0, -1).second;
+  return farthest(i, 0, -1).first;
+}
+pii farthest(int i, int d, int p) {  // returns {dist, node} farthest from i; d= dist from source node
+  pii res = {d, i};
+  for (int j : adj[i]) {
+    if (j == p) continue;
+    res = max(res, farthest(j, d + 1, i));
+  }
+  return res;
+}

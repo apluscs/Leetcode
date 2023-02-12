@@ -1,0 +1,133 @@
+// BIT MANIPULATIONS
+
+int hammingDistance(int x) {  // count #ones
+  int count = 0;
+  for (int i = 0; i < 32; i++)
+    if (x & (1 << i)) count++;
+  return count;
+}
+
+public class BitManipulation {
+
+
+  // http://programmingforinsomniacs.blogspot.com/2018/03/gospers-hack-explained.html
+  // select K bits from total N bits
+  List<Integer> GospersHack(final int K, final int N) {
+    List<Integer> res = new ArrayList<>();
+
+    int set = (1 << K) - 1;
+    final int LIMIT = (1 << N);
+    while (set < LIMIT) {
+
+      res.add(set);
+
+      // Gosper's hack:
+      int rightmost1 = set & -set; // set & -set will isolate the rightmost 1-bit.
+      int r = set + rightmost1;
+      set = (((r ^ set) >> 2) / rightmost1) | r;
+    }
+    return res;
+  }
+
+// Iterating through all masks with their submasks. Complexity O(3^N)
+for (int state = 1; state != (1 << n); state++) {
+  for (int submask = state; submask != 0; submask = (submask - 1) & state) {
+
+  }
+}
+
+// https://catonmat.net/low-level-bit-hacks
+// Hack: Turn off the rightmost 1-bit.
+  /**
+   * y = x & (x-1)
+   *
+   * <pre>
+      e.g.  x = 01110000
+          x-1 = 01101111
+            y = 01100000
+   * </pre>
+   */
+
+  // Hack: Isolate the rightmost 1-bit.
+  /**
+   * y = x & (-x)
+   *
+   * <pre>
+      e.g.  x = 0000011100000
+           -x = 1111100100000
+            y = 0000000100000
+   * </pre>
+   */
+
+
+  // Hack: Right propagate the rightmost 1-bit.
+  /**
+   * y = x | (x-1)
+   *
+   * <pre>
+      e.g.  x = 01110000
+          x-1 = 01101111
+            y = 01111111
+   * </pre>
+   */
+
+
+  // Hack: Isolate the rightmost 0-bit.
+  /**
+   * y = ~x & (x+1)
+   *
+   * <pre>
+            01110111  (x)
+            --------
+            10001000  (~x)
+        &   01111000  (x+1)
+            --------
+            00001000  (y) now the right most 0 of x is marked as 1
+   * </pre>
+   */
+
+  // Hack: Turn on the rightmost 0-bit.
+  /**
+   * y = x | (x+1)
+   *
+   * <pre>
+            01110111  (x)
+            --------
+            01110111  (x)
+        |   01111000  (x+1)
+            --------
+            01111111  (y) now the right most 0 of x is turned as 1
+   * </pre>
+   */
+
+// Hack: check a bit is 0 or 1
+for (int j = 0; j != 32; j++) {
+  int way1 = ((1 << j) & val) == 0 ? 0 : 1;
+  int way2 = (val << ~j) < 0 ? 1 : 0;
+  Assert.assertEquals(way1, way2);
+}
+//  the interesting part is the val << ~j. it's equivalent
+//  to val << (32 - (j + 1)), that sends the j bit to the left most bit, i.e.
+//  the sign bit.
+
+// Find total bits
+/*
+EPS is 1e-5d or less
+
+(int) (Math.log(0b11011) / Math.log(2) + 1 + EPS);        5
+(int) (Math.log(0b10000) / Math.log(2) + 1 + EPS);        5
+(int) (Math.log(0b11111) / Math.log(2) + 1 + EPS);        5
+*/
+
+// Subset sums
+/**
+    Imagine you have an integer array, vals will be the subset sums
+
+    int[] nums = {xxxx};
+    int[] vals = new int[1 << N];
+    for (int i = 0; i != nums.length; i++)
+      vals[1 << i] = nums[i];
+    for (int i = 1; i != vals.length; i++)
+      vals[i] = vals[i & (i - 1)] + vals[i ^ (i & (i - 1))];
+  */
+}

@@ -1,0 +1,34 @@
+// FENWICK tree
+
+// BIT finding i'th elem in log(N) time with binary lifting
+// https://codeforces.com/blog/entry/61364
+
+// 1-based!!
+
+int tree[/*tree size*/];
+
+void update(int v, int d) {  // d is the incoming change
+  for (int i = v; i < /*tree size*/; i += (i & -i)) tree[i] += d;
+}
+int count(int v) {  // sum from index [1, v]
+  int res = 0;
+  for (int i = v; i; i -= (i & -i)) res += tree[i];
+  // printf("v=%d, count=%d\n", v, res);
+  return res;
+}
+
+int range(int s, int e) {  // s and e are inclusive
+  return count(e) - count(s-1);
+}
+
+int get_ith(int i) {  // get index with prefix sum >= i
+  int low = 1, high = n;
+  while (low <= high) {
+    int mid = (low + high) / 2;
+    if (count(mid) < i)
+      low = mid + 1;
+    else
+      high = mid - 1;
+  }
+  return low;
+}

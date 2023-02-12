@@ -1,0 +1,12 @@
+// GEOMETRY
+
+double pi = 2*acos(0.0);
+
+// 0.0001 is when it's small enough to be regarded as 0
+double gcd(double x, double y) {
+  return fabs(y) < 0.0001 ? x : gcd(y, fmod(x, y));
+}
+
+double dist(double x1, double y1, double x2, double y2) {
+  return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+}

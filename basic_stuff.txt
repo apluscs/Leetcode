@@ -1,0 +1,59 @@
+// BASIC STUFF
+
+const int dir[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+const int dir[8][2] = {{0, 1}, {0, -1}, {1, 0},  {-1, 0},
+                       {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+
+// out of bounds detection
+bool out(int i, int j) { return i <= -1 || i >= n || j <= -1 || j >= m; }
+
+// hashing
+struct pair_hash {
+  template <class T1, class T2>
+  size_t operator()(pair<T1, T2> const& pair) const {
+    size_t h1 = std::hash<T1>()(pair.first);
+    size_t h2 = std::hash<T2>()(pair.second);
+
+    return h1 ^ h2;
+  }
+};
+unordered_set<pair<int, int>, pair_hash> vis;
+
+// custom sort a vector
+struct compar {
+  bool operator()(const vector<int>& a, const vector<int>& b) const {
+    return a[0] < b[0];
+  }
+};
+
+// compare two strings that represent integers
+struct compar {
+  bool operator()(const string& a, const string& b) const { // if a < b
+    if(a.length() != b.length()) return a.length() < b.length();
+    int m = a.length();
+    REP(i, m) if(a[i] != b[i]) return a[i] < b[i];
+    return false; // are the same
+  }
+};
+
+// struct with < operator
+struct Cell {
+  int i, j, h;
+  Cell(int i, int j, int h) : i(i), j(j), h(h) {}
+  bool operator<(const Cell& other) const { return h < other.h; }
+};
+
+
+// to find the key <= k in a map, do
+auto it == m.upper_bound(k);
+return m.begin() ? "" : prev(it)->second;
+
+bool deci_less(string a, string b) {  // if a < b
+  if (a.length() != b.length()) return a.length() < b.length();
+  for (int i = 0; i != a.length(); ++i) {
+    if (a[i] != b[i]) return a[i] < b[i];
+  }
+  return false;
+}
+
+  

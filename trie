@@ -1,0 +1,23 @@
+struct Trie {
+  Trie* kids[26];
+  bool end = false;
+  Trie() {
+    fill_n(kids, 26, nullptr);
+  }
+};
+Trie* root = new Trie();
+
+void add(string& s) {
+  Trie* t = root;
+  for (char c : s) {
+    if (t->kids[c - 'a'] == nullptr) t->kids[c - 'a'] = new Trie();
+    t = t->kids[c - 'a'];
+  }
+  t->end = true;
+}
+
+void clean(Trie* t) { // clean up memory if you want
+  if (t == nullptr) return;
+  for (Trie* kid : t->kids) clean(kid);
+  delete t;
+}

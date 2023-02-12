@@ -1,0 +1,57 @@
+// BFS template (an example)
+const char ops[4] = {'A', 'C', 'G', 'T'};
+unordered_set<string> have(bank.begin(), bank.end());
+int res = 0;
+queue<string> que;
+unordered_set<string> vis;
+que.push(start);
+while (!que.empty()) {
+  int m = que.size();
+  for (int i = 0; i != m; ++i) {
+    string curr = que.front();
+    que.pop();
+    if (curr == end) return res;
+    if (vis.count(curr)) continue;
+    vis.insert(curr);
+    // cout<<curr<<endl;
+    for (int j = 0; j != 8; ++j) {
+      int temp = curr[j];
+      for (char op : ops) {
+        curr[j] = op;
+        if (vis.count(curr) || have.count(curr) == 0) continue;
+        que.push(curr);
+      }
+      curr[j] = temp;
+    }
+  }
+  res++;
+}
+
+// grid BFS
+int bfs(vector<int>& start, vector<int>& end, vector<vector<int>>& grid) {
+  if (start == end) return 0;
+  int res = 1;
+  queue<pair<int, int>> que;  // use pairs instead of vectors
+  vector<vector<bool>> vis(n, vector<bool>(m));
+  que.push(make_pair(start[0], start[1]));
+  vis[start[0]][start[1]] = true;
+  while (!que.empty()) {
+    int s = que.size();
+    for (int i = 0; i != s; ++i) {
+      auto curr = que.front();
+      que.pop();
+      // cout<<curr<<endl;
+      for (auto d : dir) {
+        int ni = d[0] + curr.first, nj = d[1] + curr.second;
+        if (ni == -1 || ni == n || nj == -1 || nj == m || vis[ni][nj] ||
+            grid[ni][nj] == 0)
+          continue;
+        vis[ni][nj] = true;                            // mark as visited here
+        if (ni == end[0] && nj == end[1]) return res;  // check end here
+        que.push({ni, nj});
+      }
+    }
+    res++;
+  }
+  return -1;
+}
